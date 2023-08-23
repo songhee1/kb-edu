@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id = "diceA" class = "spring.service.dice.impl.DiceAImpl"></bean>
+<bean id = "diceB" class = "spring.service.dice.impl.DiceBImpl"></bean>
+<bean id = "diceC" class = "spring.service.dice.impl.DiceCImpl"></bean>
+<!--
+사용자 정의 빈::player01 :: A 주사위를 주입 
+ -->
+<bean id = "player01" class = "spring.service.dice.play.Player02">
+	<constructor-arg ref = "diceA"/>
+</bean>
+<!--사용자 정의 빈::player02 :: B 주사위를 주입 -->
+<bean id = "player02" class = "spring.service.dice.play.Player02">
+	<constructor-arg ref = "diceB"/>
+</bean>
+<!--사용자 정의 빈::player03 :: C 주사위를 주입 -->
+<bean id = "player03" class = "spring.service.dice.play.Player02">
+	<property name="dice" ref="diceC"></property>
+</bean>
+
+<!--사용자 정의 빈::player04 :: C 주사위를 주입 -->
+<bean id = "player04" class = "spring.service.dice.play.Player02">
+	<property name="dice" ref="diceA"></property>
+</bean>
+
+<!--사용자 정의 빈::player04 :: C 주사위를 주입 -->
+<bean id = "player05" class = "spring.service.dice.play.Player02">
+	<property name="message" value = "주사위 게임~~"></property>
+</bean>
+</beans>

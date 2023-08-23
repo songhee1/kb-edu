@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- User user01 = new User() by DI Container의해 생성
+	-> 디폴트 생성자로 먼저 생성한다 없으면 오류..
+	
+		user01.setUserId("01유저") by DI Container 의해 생성
+		user01.setUserAge("01") by DI Container 의해 생성
+		
+	  -->
+	<!--  사용자 정의 빈  ::  setter 주입 + 단순 파라미터 주입에 userId, password, age가 있다.  
+	property name은 setname 이렇게 설정된다. 단순 파라미터 값은 value에 작성하면 된다.
+	 -->
+	<bean id="user01" class="spring.service.domain.User">
+		<property name="userId" value="01유저"/>
+		<property name="age" value = "01"/>
+	</bean>
+	
+	
+	
+    <!-- API 빈 : 자바에서 제공하는 빈	 -->  
+	<bean id="password" class= "java.lang.String">
+		<constructor-arg value="7777"></constructor-arg>
+	</bean>
+	
+	
+	
+	<!--  사용자 정의 빈 생성 ::  setter 주입 + 단순 파라미터 주입하려 한다.
+	id = "02유저" age = "02" password=위에서 정의한 빈을 참조
+	 -->
+	<bean id="user02" class="spring.service.domain.User">
+		<property name="userId" value = "02유저"/>
+		<property name="age" value = "02"/>
+		<property name="password" ref="password"/>
+	</bean>
+	
+	
+	
+	<!-- 사용자 정의 빈 생성 :: id = "user03" :: DI 값 주입 없음  -->
+	<bean id = "user03" class="spring.service.domain.User"></bean>
+	
+	
+	 
+	 <!-- 사용자 정의 빈 생성 :: id = "user04" :: 생성자 값 주입 + 단순 파라미터 주입 
+	 age = "04" password = "0404"
+	  -->
+	<bean id="user04" class="spring.service.domain.User">
+		<constructor-arg index = "2" value ="04유저"></constructor-arg>
+		<constructor-arg index = "0" value ="04"></constructor-arg>
+		<constructor-arg index = "1" value = "0404"></constructor-arg>
+	</bean>
+	
+	
+	
+	<!-- 사용자 정의 빈 생성 :: id="user05" :: 생성자 값 주입 + 단순 파라미터 주입("05유저", "05", "0505")  -->
+	<bean id="user05" class="spring.service.domain.User">
+		<constructor-arg type = "String" value ="05유저"></constructor-arg>
+		<constructor-arg type = "int" value ="05"></constructor-arg>
+		<constructor-arg index = "1" value = "0505"></constructor-arg>
+	</bean>
+	
+</beans>
