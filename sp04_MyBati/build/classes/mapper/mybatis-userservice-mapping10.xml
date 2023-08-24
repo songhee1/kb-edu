@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
+<mapper namespace="UserMapper10">
+	 
+     <resultMap type="user" id="userSelectMap">
+     	<result property="userId" column = "user_id"/>
+     	<result property="userName" column = "user_name"/>
+     	<result property="password" column = "password"/>
+     	<result property="age" column = "age"/>
+     	<result property="grade" column = "grade"/>
+     	<result property="regDate" column = "reg_date"/>
+     </resultMap>
+      
+      
+     <sql id="select-users">
+     SELECT 
+     user_id,
+     user_name,
+     password,
+     age,
+     grade,
+     reg_date
+     FROM users
+   
+     </sql>
+     
+     <sql id="orderby-userid-desc">
+     ORDER BY user_id DESC
+     </sql>
+     
+     
+     <!-- 정적 쿼리문  --> 
+     <select id="getUser" parameterType="user" resultMap="userSelectMap">
+     	<include refid="select-users"></include>
+     	WHERE password = #{userId}
+     </select>
+     
+      <select id="getUserList" parameterType="user" resultMap = "userSelectMap">
+	     <include refid="select-users"/>
+	     <where>
+	     	<if test="userName != null">
+	     		user_name LIKE #{userName}
+	     	</if>
+	     	<if test="age != null">
+	     		OR age LIKE #{age}
+	     	</if>
+	     </where>
+	    <include refid="orderby-userid-desc"/>
+     </select>
+     
+     <!-- 추가 : addUser, updateUser, removeUser  -->
+     <insert id="addUser" parameterType="user">
+   	INSERT INTO 
+   	users(user_id, user_name, password, age, grade, reg_date)
+   	VALUES(
+   		#{userId},
+   		#{userName},
+   		#{password},
+   		#{age},
+   		#{grade},
+   		#{regDate}
+   	)
+   	
+   </insert>
+     
+     <!--  주몽 이름을 장보고로 수정하는 쿼리문 -->
+     <update id="updateUser" parameterType="user">
+     UPDATE users
+     SET user_name = #{userName}
+     WHERE user_id = #{userId}
+     </update>
+     
+     
+     <delete id="removeUser" parameterType="string">
+     DELETE users
+     WHERE user_id = #{VALUE}
+     </delete>
+</mapper>
