@@ -25,11 +25,11 @@ public class MyBatisTestApp07 {
 			
 			//==> Test 용 UserVO instance 생성  
 			User user = new User("user01", "홍길동","user01",new Integer(30),1);
-			/*
+			
 			//1. User07.getUserList01 Test 
 			System.out.println(":: 1. getUserList01(SELECT)  ? ");
 			TestUtil.printList((List)session.selectList("UserMapper07.getUserList01",user));
-			*/
+			
 			
 			
 			//2. User07.getUserList Test 
