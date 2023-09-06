@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+<!-- Target(2) member, product || Advice(1) logging -->
+<bean id = "member" class = "spring.aop.solv.anno.MemberService"/>
+<bean id = "product" class = "spring.aop.solv.anno.ProductService"/>
+<bean id = "logging" class = "spring.aop.solv.anno.LogginAdvice"/>
+
+<!-- advice의 어떤 기능이 target 메서드 호출될 때 위빙되는지를 자세히 설정 -> 어노테이션으로 지정해주었기 때문 -->
+<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+ <!-- aop:config를 코드에 작성했다는 의미다. -->
+</beans>
